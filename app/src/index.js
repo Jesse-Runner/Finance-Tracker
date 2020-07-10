@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import ExpenseGroup from './ExpenseGroup';
+import Nav from './NavBar'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ExpenseGroup />
+    <Nav></Nav>
   </React.StrictMode>,
   document.getElementById('root')
 );
