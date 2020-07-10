@@ -28,9 +28,10 @@ export default function ButtonAppBar() {
         <Toolbar>
           
           <Typography variant="h6" className={classes.title}>
-            News
+            Mindful
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button style = {{marginRight: 30}} color="inherit">Home</Button>
+          <Button style = {{marginRight: 30}} color="inherit">Overview</Button>
         </Toolbar>
       </AppBar>
     </div>
