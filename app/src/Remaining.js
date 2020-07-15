@@ -14,20 +14,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function Available() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>July Budget</Title>
+      <Title>Available Funds</Title>
       <Typography style={{color: '#2E3B55'}} component="p" variant="h4">
-        $3,024.00
+        $500.00
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         July 13th, 2020
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
-          Adjust Monthly Balance
+          Redistribute Funds
         </Link>
       </div>
     </React.Fragment>
