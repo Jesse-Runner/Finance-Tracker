@@ -20,7 +20,7 @@ export default function Deposits() {
     <React.Fragment>
       <Title>July Budget</Title>
       <Typography style={{color: '#2E3B55'}} component="p" variant="h4">
-        $3,024.00
+        $3,124.00
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         July 13th, 2020

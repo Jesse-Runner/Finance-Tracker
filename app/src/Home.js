@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import Total from './Total';
+import Breakdown from './BudgetTable';
 import Available from './Remaining';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';    
@@ -27,7 +28,7 @@ const options = {
   data: [{
     type: "bar",
     dataPoints: [
-      { y:  1400, label: "Rent" },
+      { y:  700, label: "Rent" },
       { y:  85, label: "Travel" },
       { y:  100, label: "Groceries" },
       { y:  25, label: "Gambling" }
@@ -44,22 +45,21 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: '100%',
-     marginTop: '20px',
-    // marginLeft: '120px',
+    marginTop: '20px',
   },
   paper1: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: '100%',
-     marginTop: '20px',
+    marginTop: '20px',
   },
   paper2: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: '100%',
-     marginTop: '5px',
+    marginTop: '5px',
   },
   size:{
     height: '1/6',
@@ -78,11 +78,16 @@ export default function CenteredGrid() {
               <Grid item xs={3} ><Paper className={classes.paper1}><Available></Available></Paper></Grid>
             
           </Grid>
-          <Grid container direction="row" alignItems="center" justify="center" spacing = {5}>
+          <Grid container direction="row" alignItems="center" justify="center" spacing = {3}>
             <Grid item xs ={6}>
             <Paper className={classes.paper}>
                 <CanvasJSChart options = {options}/>
             </Paper>
+            </Grid>
+          </Grid>
+          <Grid container direction="row" alignItems="center" justify="center" spacing = {4}>
+            <Grid item xs={6}>
+                <Breakdown/>
             </Grid>
           </Grid>
       </div>   
