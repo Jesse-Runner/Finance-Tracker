@@ -34,7 +34,7 @@ export default function ButtonAppBar() {
             Mindful
           </Typography>
             <Button href = "/"style = {{marginRight: 30}} color="inherit">Home</Button>
-            <Button href = "/Expense_group" style = {{marginRight: 30}} color="inherit">Overview</Button>
+            <Button href = "/Overview" style = {{marginRight: 30}} color="inherit">Overview</Button>
         </Toolbar>
       </AppBar>
     </div>

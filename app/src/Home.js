@@ -13,7 +13,8 @@ import Box from '@material-ui/core/Box'
 import { sizing } from '@material-ui/system';
 
 const options = {
-  animationEnabled: true,
+  animationEnabled: true, 
+  height:300,
   theme: "light2",
   title:{
     text: "Monthly Income Spent"
@@ -62,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5px',
   },
   size:{
-    height: '1/6',
-    width: '100vh',
+    height: '10%',
   }
 }));
 
@@ -80,7 +80,7 @@ export default function CenteredGrid() {
           </Grid>
           <Grid container direction="row" alignItems="center" justify="center" spacing = {3}>
             <Grid item xs ={6}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.size} className={classes.paper}>
                 <CanvasJSChart options = {options}/>
             </Paper>
             </Grid>
