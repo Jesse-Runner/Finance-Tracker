@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
+import Selecter from './CategoryView.js';
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DialogSelect() {
+export default function CategorySelection() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [age, setAge] = React.useState('');
@@ -81,16 +82,11 @@ export default function DialogSelect() {
 
   return (
     <div>
-      <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={handleClickOpen}>Add New Category</Button>
+      <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={handleClickOpen}>Select Category</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Enter your category</DialogTitle>
         <DialogContent>
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="demo-dialog-native">Title</InputLabel>
-              <BootstrapInput id="demo-customized-textbox" />
-            </FormControl>
-          </form>
+          <Selecter/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

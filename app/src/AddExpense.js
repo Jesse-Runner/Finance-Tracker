@@ -115,7 +115,7 @@ export default function InputAdornments() {
   return (
     <div className={classes.root}>
       <div>
-      <Button onClick={handleClickOpen}>Add New Expense</Button>    
+      <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={handleClickOpen}>Add New Expense</Button>    
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Enter your Expense</DialogTitle>
         <DialogContent>
@@ -168,6 +168,7 @@ export default function InputAdornments() {
           <InputLabel htmlFor="standard-adornment-amount">Description</InputLabel>
           <Input
             id="standard-adornment-amount"
+            type={values.showPassword ? 'text' : 'Description'}
             value={values.amount}
             onChange={handleChange('Description')}
             startAdornment={<InputAdornment position="start"></InputAdornment>}
