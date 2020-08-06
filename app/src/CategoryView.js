@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -13,128 +13,89 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const options = [
-  'Rent',
-  'Travel',
-  'Groceries',
-  'Gambling',
-];
+class ConfirmationDialogRaw extends Component {
 
-function ConfirmationDialogRaw(props) {
-  const { onClose, value: valueProp, open, ...other } = props;
-  const [value, setValue] = React.useState(valueProp);
-  const radioGroupRef = React.useRef(null);
+  state = {  
+    isLoading: true,
+    options: [],
+    value: "empty",
+    open: false,
+}
 
-  React.useEffect(() => {
-    if (!open) {
-      setValue(valueProp);
-    }
-  }, [valueProp, open]);
+handleChange = event => {
+  const value = event.target.value;
+  this.setState({value: value});
+};
+handleClickOpen = () => {
+  this.setState({open: true})
+};
+handleClose = () => {
+  this.setState({open:false});
+};
 
-  const handleEntering = () => {
-    if (radioGroupRef.current != null) {
-      radioGroupRef.current.focus();
-    }
-  };
+handleOk = () => {
+  this.setState({open:false});
+};
 
-  const handleCancel = () => {
-    onClose();
-  };
+output = () => {
+  if (this.state.value != "empty"){
+    return <h3> {this.state.value}</h3>
+  } 
+};
+async componentDidMount(){
+  try{
+      const response = await fetch('/api/Expense_group')
+      if(!response.ok){
+          throw Error(response.statusText);
+      }
+      const body = await response.json();
+      this.setState({options: body, isLoading: false});
+  }
+  catch(error){
+      console.log(error);
+  }
+}
 
-  const handleOk = () => {
-    onClose(value);
-  };
+  render(){
+    var isLoading = this.state.isLoading;
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
+    if(isLoading)
+            return (<div>Loading </div>)
   return (
+    <React.Fragment>
+    <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={this.handleClickOpen}>Select Category</Button>
     <Dialog
       disableBackdropClick
       disableEscapeKeyDown
       maxWidth="xs"
-      onEntering={handleEntering}
       aria-labelledby="confirmation-dialog-title"
-      open={open}
-      {...other}
+      open={this.state.open}
     >
       <DialogTitle id="confirmation-dialog-title">Categories</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
-          ref={radioGroupRef}
           aria-label="ringtone"
           name="ringtone"
-          value={value}
-          onChange={handleChange}
+          value={this.value}
+          onChange={this.handleChange}
         >
-          {options.map((option) => (
-            <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
+          {this.state.options.map((option) => (
+            <FormControlLabel value={option.name} key={option.id} control={<Radio />} label={option.name} />
           ))}
         </RadioGroup>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleCancel} color="primary">
+        <Button autoFocus onClick={this.handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleOk} color="primary">
+        <Button  onClick={this.handleClose} color="primary">
           Ok
         </Button>
       </DialogActions>
     </Dialog>
+    <h3>{this.state.value}</h3>
+    </React.Fragment>
   );
-}
+}}
 
-ConfirmationDialogRaw.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.string.isRequired,
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    width: '80%',
-    maxHeight: 435,
-  },
-}));
-
-export default function ConfirmationDialog() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('Dione');
-
-  const handleClickListItem = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (newValue) => {
-    setOpen(false);
-
-    if (newValue) {
-      setValue(newValue);
-    }
-  };
-
-  return (
-    <div className={classes.root}>
-      <List component="div" role="list">
-      <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={handleClickListItem}>Select Category</Button>
-        <ConfirmationDialogRaw
-          classes={{
-            paper: classes.paper,
-          }}
-          id="category-menu"
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          value={value}
-        />
-      </List>
-    </div>
-  );
-}
+export default ConfirmationDialogRaw;
