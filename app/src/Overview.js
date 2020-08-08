@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '20px',
     },
     button: {
-        padding: theme.spacing(1),
+            
         marginTop: '20px',
         marginRight: '40px',
     },
     button1: {
+        
         marginTop: '20px',
         marginRight: '40px',
     }

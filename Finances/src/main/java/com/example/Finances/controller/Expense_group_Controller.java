@@ -37,8 +37,8 @@ public class Expense_group_Controller {
 	}
 	// retrieve a specific expense group based on id
 	@GetMapping("/Expense_group/{id}")
-	ResponseEntity<Expense_group> getExpense(@PathVariable Long id){
-		Optional<Expense_group> expenseGroup = expense_View.findById(id);
+	ResponseEntity<Expense_group> getExpense(@PathVariable String id){
+		Optional<Expense_group> expenseGroup = Optional.ofNullable(expense_View.findByName(id));
 		return expenseGroup.map(response -> ResponseEntity.ok().body(response))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
@@ -46,7 +46,7 @@ public class Expense_group_Controller {
 	@PostMapping("/Expense_group")
 	ResponseEntity<Expense_group> create_Expense_group(@RequestBody Expense_group expense_group) throws URISyntaxException{
 		Expense_group result = expense_View.save(expense_group);
-		return ResponseEntity.created(new URI("/api/Expense_group" + result.getId())).body(result);
+		return ResponseEntity.created(new URI("/api/Expense_group" + result.getName())).body(result);
 		
 	}
 	

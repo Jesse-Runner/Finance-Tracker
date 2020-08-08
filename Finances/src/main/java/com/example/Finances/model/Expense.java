@@ -16,7 +16,7 @@ public class Expense {
 	private Long total;
 	private String name;
 	private String description;
-	private Instant date;
+	private String date;
 	@ManyToOne
 	private Expense_group group;
 	public Long getId() {
@@ -43,10 +43,10 @@ public class Expense {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Instant getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Instant date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public Expense_group getGroup() {
@@ -55,5 +55,4 @@ public class Expense {
 	public void setGroup(Expense_group group) {
 		this.group = group;
 	}
-	
 }

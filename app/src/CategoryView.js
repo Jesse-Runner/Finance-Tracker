@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TableDisplay from './TableDisplay';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -22,12 +23,22 @@ class ConfirmationDialogRaw extends Component {
     open: false,
 }
 
+findId = (options,value) =>{
+  console.log(value);
+     for(var i = 0; i < options.length; i++){
+       console.log(options[i].name);
+       if(options[i].name === value){
+         return options[i].id;
+       }
+     }
+     return -1;
+}
 handleChange = event => {
   const value = event.target.value;
   this.setState({value: value});
 };
 handleClickOpen = () => {
-  this.setState({open: true})
+  this.setState({open: true,value:"empty"})
 };
 handleClose = () => {
   this.setState({open:false});
@@ -62,7 +73,7 @@ async componentDidMount(){
     if(isLoading)
             return (<div>Loading </div>)
   return (
-    <React.Fragment>
+    <div>
     <Button variant="contained" style={{backgroundColor: '#2E3B55'}} color="primary" onClick={this.handleClickOpen}>Select Category</Button>
     <Dialog
       disableBackdropClick
@@ -93,8 +104,8 @@ async componentDidMount(){
         </Button>
       </DialogActions>
     </Dialog>
-    <h3>{this.state.value}</h3>
-    </React.Fragment>
+    <TableDisplay Selected={this.state.value} GroupId={this.findId(this.state.options,this.state.value)}/>
+    </div>
   );
 }}
 
