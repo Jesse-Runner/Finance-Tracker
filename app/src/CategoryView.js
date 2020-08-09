@@ -21,6 +21,7 @@ class ConfirmationDialogRaw extends Component {
     options: [],
     value: "empty",
     open: false,
+    populated: false
 }
 
 findId = (options,value) =>{
@@ -35,10 +36,10 @@ findId = (options,value) =>{
 }
 handleChange = event => {
   const value = event.target.value;
-  this.setState({value: value});
+  this.setState({value: value, populated: true});
 };
 handleClickOpen = () => {
-  this.setState({open: true,value:"empty"})
+  this.setState({open: true,value:"empty",populated:false})
 };
 handleClose = () => {
   this.setState({open:false});
@@ -104,7 +105,7 @@ async componentDidMount(){
         </Button>
       </DialogActions>
     </Dialog>
-    <TableDisplay Selected={this.state.value} GroupId={this.findId(this.state.options,this.state.value)}/>
+    <TableDisplay Populated ={this.state.populated} GroupId={this.findId(this.state.options,this.state.value)}/>
     </div>
   );
 }}

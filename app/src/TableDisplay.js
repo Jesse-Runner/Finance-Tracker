@@ -12,7 +12,8 @@ import Tableshow from './Table';
 class TableDisplay extends Component{
     state={
         isLoading: true,
-        Expenses:[]
+        Expenses:[],
+        selected: false
     }
 
 StyledTableCell = withStyles((theme) => ({
@@ -64,10 +65,14 @@ async componentDidMount(){
 render(){
     
     const {isLoading} = this.state.isLoading;
+    const populated = this.props.Populated;
     const relevantExpenses = this.filterExpenses(this.state.Expenses, this.props.GroupId);
-    console.log(relevantExpenses);
     if(isLoading)
             return (<div>Loading </div>)
+
+    if(populated === false){
+            return (<div>Select your Category</div>)
+    }
     return(
 
     <div>
