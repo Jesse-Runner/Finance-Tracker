@@ -1,4 +1,13 @@
 import React, {Component} from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Tableshow from './Table';
 
 class TableDisplay extends Component{
     state={
@@ -6,17 +15,38 @@ class TableDisplay extends Component{
         Expenses:[]
     }
 
-possibleDisplay(props){
-    if(props == "empty"){
-        return null
+StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+    }))(TableCell);
+    
+StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+        },
+    },
+}))(TableRow);
+
+useStyles = makeStyles({
+    table: {
+      minWidth: 700,
+    },
+  });
+
+filterExpenses(x,y){
+    var obj=[];
+    for(var i = 0; i < x.length; i++){
+        if(x[i].group.id === y){
+            obj.push(x[i]);
+        }
     }
-    return props
-}
-possibleDisplay2(x,y){
-    if(x.group.id === y)
-    {
-        return x.name;
-    }
+    return obj;
 }
 async componentDidMount(){
     try{
@@ -32,16 +62,22 @@ async componentDidMount(){
     }
 }
 render(){
+    
     const {isLoading} = this.state.isLoading;
+    const relevantExpenses = this.filterExpenses(this.state.Expenses, this.props.GroupId);
+    console.log(relevantExpenses);
     if(isLoading)
             return (<div>Loading </div>)
-return(
+    return(
+
     <div>
-    {this.state.Expenses.map(item =>
-        <div>
-            {this.possibleDisplay2(item,this.props.GroupId)}
-        </div>
-    )}
+            <Tableshow 
+                // Name={item.name}
+                // Desc={item.description}
+                // Date={item.date}
+                // Total={item.total}
+                ExpenseList={relevantExpenses}
+            />
     </div>
 );
 }
